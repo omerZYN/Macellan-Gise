@@ -3,182 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Card Popup with NFC</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
-    }
-
-    .card-container {
-      display: flex;
-      gap: 20px;
-    }
-
-    .card {
-      width: 150px;
-      height: 150px;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-size: 16px;
-      text-align: center;
-      padding: 20px;
-      cursor: pointer;
-    }
-
-    .card .icon {
-      font-size: 40px;
-      margin-bottom: 10px;
-    }
-
-    .green { background-color: #34c759; }
-    .blue { background-color: #007aff; }
-    .yellow { background-color: #ffcc00; color: #4b4b4b; }
-    .black { background-color: #1c1c1e; }
-    .red { background-color: #ff3b30; }
-
-    /* Popup Styles */
-    .popup-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .popup {
-      background: white;
-      padding: 20px;
-      width: 400px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      position: relative;
-    }
-
-    .popup input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #007aff;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-
-    .popup button {
-      background-color: #3a5db0;
-      color: white;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-      font-size: 20px;
-    }
-  </style>
+  <title>Web NFC Card Reader</title>
 </head>
 <body>
-  <div class="card-container">
-    <div class="card green" onclick="openPopup()">
-      <div class="icon">📞</div>
-      <div>Telefon<br>İle Sorgula</div>
-    </div>
-    <div class="card blue" onclick="openPopup()">
-      <div class="icon">💳</div>
-      <div>Kart No<br>İle Sorgula</div>
-    </div>
-    <div class="card yellow" onclick="openPopup()">
-      <div class="icon">💳</div>
-      <div>Çoklu Kart<br>Tanımlama</div>
-    </div>
-    <div class="card black" onclick="openPopup()">
-      <div class="icon">👤</div>
-      <div>Kart/Kullanıcı<br>Oluştur</div>
-    </div>
-    <div class="card red" onclick="openPopup()">
-      <div class="icon">❌</div>
-      <div>Kartı<br>Pasife Al</div>
-    </div>
-  </div>
+  <section>
+    <h1>Web NFC ile Kart Tanımlama</h1>
 
-  <!-- Popup Overlay -->
-  <div class="popup-overlay" id="popupOverlay">
-    <div class="popup">
-      <span class="close-btn" onclick="closePopup()">&times;</span>
-      <input type="text" id="cardInput" placeholder="Kart Numarası">
-      <button onclick="getUser()">Kullanıcıyı Getir</button>
-    </div>
-  </div>
+    <!-- Kart numarasını göstermek için bir giriş alanı -->
+    <label for="card-id">Kart ID:</label>
+    <input type="text" id="card-id" placeholder="Kartınızı okutun veya ID girin" disabled>
+
+    <!-- NFC ile Kart Oku butonu -->
+    <button id="start-nfc">NFC ile Kartı Tara</button>
+
+    <!-- Durum mesajı için alan -->
+    <p id="status"></p>
+  </section>
 
   <script>
-    // Function to open the popup
-    function openPopup() {
-      document.getElementById("popupOverlay").style.display = "flex";
-      startNFCReader(); // Start NFC reader when popup opens
-    }
+    // Web NFC desteğini kontrol ediyoruz ve NFC tarayıcıyı başlatıyoruz.
+    document.getElementById("start-nfc").addEventListener("click", async () => {
+      const statusEl = document.getElementById("status");
+      const cardIdInput = document.getElementById("card-id");
 
-    // Function to close the popup
-    function closePopup() {
-      document.getElementById("popupOverlay").style.display = "none";
-      stopNFCReader(); // Stop NFC reader when popup closes
-    }
-
-    // Function to start the NFC reader
-    async function startNFCReader() {
-      if ('NDEFReader' in window) {
+      if ("NDEFReader" in window) {
         try {
           const ndef = new NDEFReader();
           await ndef.scan();
-          ndef.onreading = event => {
-            const cardUID = event.serialNumber;
-            document.getElementById("cardInput").value = cardUID;
+
+          statusEl.textContent = "NFC tarayıcı başlatıldı. Kartınızı yaklaştırın.";
+
+          // NFC kartından veri okunduğunda
+          ndef.onreading = (event) => {
+            const { message } = event;
+            for (const record of message.records) {
+              if (record.recordType === "text") {
+                const cardNo = new TextDecoder().decode(record.data);
+                cardIdInput.value = cardNo;  // Kart ID'sini giriş alanına yazdırıyoruz
+                statusEl.textContent = "Kart başarıyla okundu!";
+                break;
+              }
+            }
+          };
+
+          // NFC okuma hatası durumunda
+          ndef.onreadingerror = () => {
+            statusEl.textContent = "NFC okuma hatası. Lütfen tekrar deneyin.";
           };
         } catch (error) {
-          console.log("NFC scanning failed:", error);
+          statusEl.textContent = "NFC tarayıcı başlatılamadı. Tarayıcınız desteklemiyor olabilir.";
         }
       } else {
-        alert("Web NFC is not supported on this device.");
+        statusEl.textContent = "Web NFC desteklenmiyor.";
       }
-    }
-
-    // Function to stop the NFC reader (not mandatory, as it stops after reading)
-    function stopNFCReader() {
-      // Currently, there's no direct stop function for Web NFC.
-      // NFC scanning stops automatically after reading a tag.
-    }
-
-    // Placeholder function for the user retrieval action
-    function getUser() {
-      const cardUID = document.getElementById("cardInput").value;
-      alert("Kullanıcı UID: " + cardUID);
-      // You can add the logic to retrieve user data based on UID here
-    }
+    });
   </script>
 </body>
 </html>
