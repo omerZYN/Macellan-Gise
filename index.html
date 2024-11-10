@@ -1,62 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- HEAD SECTION -->
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Web NFC Card Reader</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIRO Team</title>
+
+    <!-- External CSS Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" 
+        rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 </head>
+
 <body>
-  <section>
-    <h1>Web NFC ile Kart Tanımlama</h1>
+    <!-- HEADER SECTION -->
+    <header>
+        <h1 class="glass">AIRO Tech <img src="airoLogo.png" alt="AIRO Logo"></h1>
+        <nav class="glass">
+            <a href="#team">Takımımız</a>
+            <a href="#goals">Hedefimiz</a>
+            <a href="#contact">İletişim</a>
+            <a href="#gallery">Galeri</a>
+        </nav>
+    </header>
 
-    <!-- Kart numarasını göstermek için bir giriş alanı -->
-    <label for="card-id">Kart ID:</label>
-    <input type="text" id="card-id" placeholder="Kartınızı okutun veya ID girin" disabled>
+    <!-- ANIMATED RINGS SECTION -->
+    <section id="team">
+        <div class="container">
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+        </div>
 
-    <!-- NFC ile Kart Oku butonu -->
-    <button id="start-nfc">NFC ile Kartı Tara</button>
+        <!-- TEAM MEMBERS SECTION -->
+        <h2 class="glass">Takımımız</h2>
+        <div class="team">
+                <!-- Team Member 1 -->
+                <a href="https://tr.linkedin.com/in/hasan-zengin" target="_blank" class="member-link">
+                    <div class="member glass">
+                        <img src="hasan.jpg" alt="Hasan Zengin">
+                        <h3>Hasan Zengin</h3>
+                        <p>İstinye Üniversitesi<br>Makine Mühendisliği Öğrencisi</p>
+                        <div class="linkedin-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                    </div>
+                </a>
+        
+                <!-- Team Member 2 -->
+                <a href="https://www.linkedin.com/in/%C3%B6mer-safa-aksu-901084241/" target="_blank" class="member-link">
+                    <div class="member glass">
+                        <img src="omer.jpeg" alt="Ömer Safa Aksu">
+                        <h3>Ömer Safa Aksu</h3>
+                        <p>İstinye Üniversitesi<br>Bilgisayar Mühendisliği Öğrencisi</p>
+                        <div class="linkedin-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                    </div>
+                </a>
+        
+                <!-- Team Member 3 -->
+                <a href="https://www.linkedin.com/in/alper-aslan-aa1331273/" target="_blank" class="member-link">
+                    <div class="member glass">
+                        <img src="alper.jpeg" alt="Alper Aslan">
+                        <h3>Alper Aslan</h3>
+                        <p>İstinye Üniversitesi<br>Matematik Bölümü Öğrencisi</p>
+                        <div class="linkedin-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </section>
 
-    <!-- Durum mesajı için alan -->
-    <p id="status"></p>
-  </section>
+    <!-- GOALS SECTION -->
+    <section id="goals" class="glass">
+        <div class="goals-bg">
+            <img src="savasan-iha.png" alt="Savaşan İHA">
+        </div>
+        <h2>Bu Seneki Hedefimiz</h2>
+        <p>Bu yıl Teknofest Savaşan İHA yarışmasına katılmayı hedefliyoruz.</p>
+        <p>Takım olarak en iyi stratejilerle mücadele edecek ve yapay zeka tabanlı algoritmalarımızla rakiplerimizi alt etmeye çalışacağız.</p>
+    </section>
 
-  <script>
-    // Web NFC desteğini kontrol ediyoruz ve NFC tarayıcıyı başlatıyoruz.
-    document.getElementById("start-nfc").addEventListener("click", async () => {
-      const statusEl = document.getElementById("status");
-      const cardIdInput = document.getElementById("card-id");
+    <!-- GALLERY SECTION -->
+    <section id="gallery" class="glass">
+        <h2>Galeri</h2>
+        <div class="gallery-scroll">
+            <div class="gallery-item">
+                <img src="teknofest story.jpeg" alt="Teknofest Story">
+            </div>
+            <div class="gallery-item">
+                <img src="savasan  toplu.jpeg" alt="Savasan Toplu">
+            </div>
+            <div class="gallery-item">
+                <img src="exoda takım.jpeg" alt="Exoda Takım">
+            </div>
+            <div class="gallery-item">
+                <img src="ucaklar.jpeg" alt="Exoda Logo">
+            </div>
+            <div class="gallery-item">
+                <img src="samsun1.jpeg" alt="AIRO Logo">
+            </div>
 
-      if ("NDEFReader" in window) {
-        try {
-          const ndef = new NDEFReader();
-          await ndef.scan();
+        </div>
+    </section>
 
-          statusEl.textContent = "NFC tarayıcı başlatıldı. Kartınızı yaklaştırın.";
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="glass">
+        <h2>İletişim</h2>
+        <p><i class="fa fa-envelope" aria-hidden="true"></i> omer.safa.aksu@airoco.net</p>
+        <p><i class="fa fa-phone" aria-hidden="true"></i> +90 530 015 7191</p>
+    </section>
 
-          // NFC kartından veri okunduğunda
-          ndef.onreading = (event) => {
-            const { message } = event;
-            for (const record of message.records) {
-              if (record.recordType === "text") {
-                const cardNo = new TextDecoder().decode(record.data);
-                cardIdInput.value = cardNo;  // Kart ID'sini giriş alanına yazdırıyoruz
-                statusEl.textContent = "Kart başarıyla okundu!";
-                break;
-              }
+    <!-- FOOTER SECTION -->
+    <footer class="glass">
+        <p>© 2024 AIRO Team. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <!-- JAVASCRIPT SECTION -->
+    <script>
+        // Fixed Navigation Implementation
+        const fixedNav = document.createElement('nav');
+        fixedNav.className = 'fixed-nav glass';
+        fixedNav.innerHTML = `
+            <a href="#team">Takımımız</a>
+            <a href="#goals">Hedefimiz</a>
+            <a href="#contact">İletişim</a>
+            <a href="#gallery">Galeri</a>
+        `;
+        document.body.appendChild(fixedNav);
+
+        // Scroll Position Handler
+        let lastScroll = 0;
+        const headerHeight = document.querySelector('header').offsetHeight;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > headerHeight) {
+                fixedNav.classList.add('visible');
+                fixedNav.style.transform = currentScroll > lastScroll 
+                    ? 'translateY(-100%)' 
+                    : 'translateY(0)';
+            } else {
+                fixedNav.classList.remove('visible');
             }
-          };
+            
+            lastScroll = currentScroll;
+        });
 
-          // NFC okuma hatası durumunda
-          ndef.onreadingerror = () => {
-            statusEl.textContent = "NFC okuma hatası. Lütfen tekrar deneyin.";
-          };
-        } catch (error) {
-          statusEl.textContent = "NFC tarayıcı başlatılamadı. Tarayıcınız desteklemiyor olabilir.";
+        // Smooth Scroll Implementation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const navHeight = fixedNav.offsetHeight;
+                    const targetPosition = targetElement.offsetTop - navHeight;
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Gallery Auto-Scroll
+        const gallery = document.querySelector('.gallery-scroll');
+        let scrollAmount = 0;
+        const scrollSpeed = 1; // Pixels per frame
+        let isMouseOver = false;
+
+        // Clone the first few items and append them to the end for smooth infinite scroll
+        function setupGallery() {
+            const items = gallery.querySelectorAll('.gallery-item');
+            const itemWidth = items[0].offsetWidth + 20; // Include gap
+            const itemsToClone = Math.ceil(gallery.offsetWidth / itemWidth);
+            
+            // Clone beginning items to end
+            for (let i = 0; i < itemsToClone; i++) {
+                const clone = items[i].cloneNode(true);
+                gallery.appendChild(clone);
+            }
         }
-      } else {
-        statusEl.textContent = "Web NFC desteklenmiyor.";
-      }
+
+        function smoothScroll() {
+            if (!isMouseOver) {
+                scrollAmount += scrollSpeed;
+                const items = gallery.querySelectorAll('.gallery-item');
+                const firstItemWidth = items[0].offsetWidth + 20; // Include gap
+
+                if (scrollAmount >= firstItemWidth) {
+                    scrollAmount = 0;
+                    gallery.scrollLeft = 0;
+                    const firstItem = gallery.querySelector('.gallery-item');
+                    gallery.appendChild(firstItem.cloneNode(true));
+                    firstItem.remove();
+                }
+
+                gallery.scrollLeft = scrollAmount;
+            }
+            requestAnimationFrame(smoothScroll);
+        }
+
+        // Add mouse event listeners to pause scrolling on hover
+        gallery.addEventListener('mouseenter', () => {
+            isMouseOver = true;
+        });
+
+        gallery.addEventListener('mouseleave', () => {
+            isMouseOver = false;
+        });
+
+        // Initialize the gallery
+        document.addEventListener('DOMContentLoaded', () => {
+            setupGallery();
+            smoothScroll();
     });
-  </script>
+
+        // Custom Cursor Implementation
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.querySelector('.custom-cursor');
+            
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+
+            document.addEventListener('mousedown', () => {
+                cursor.style.transform = 'scale(0.8)';
+            });
+
+            document.addEventListener('mouseup', () => {
+                cursor.style.transform = 'scale(1)';
+            });
+
+            document.addEventListener('mouseleave', () => {
+                cursor.style.display = 'none';
+            });
+
+            document.addEventListener('mouseenter', () => {
+                cursor.style.display = 'block';
+            });
+        });
+    </script>
+
+    <!-- Custom Cursor Element -->
+    <div class="custom-cursor"></div>
 </body>
 </html>

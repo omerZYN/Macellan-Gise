@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web NFC Card Reader</title>
+</head>
+<body>
+  <section>
+    <h1>Web NFC ile Kart Tanımlama</h1>
+
+    <!-- Kart numarasını göstermek için bir giriş alanı -->
+    <label for="card-id">Kart ID:</label>
+    <input type="text" id="card-id" placeholder="Kartınızı okutun veya ID girin" disabled>
+
+    <!-- NFC ile Kart Oku butonu -->
+    <button id="start-nfc">NFC ile Kartı Tara</button>
+
+    <!-- Durum mesajı için alan -->
+    <p id="status"></p>
+  </section>
+
+  <script>
+    // Web NFC desteğini kontrol ediyoruz ve NFC tarayıcıyı başlatıyoruz.
+    document.getElementById("start-nfc").addEventListener("click", async () => {
+      const statusEl = document.getElementById("status");
+      const cardIdInput = document.getElementById("card-id");
+
+      if ("NDEFReader" in window) {
+        try {
+          const ndef = new NDEFReader();
+          await ndef.scan();
+
+          statusEl.textContent = "NFC tarayıcı başlatıldı. Kartınızı yaklaştırın.";
+
+          // NFC kartından veri okunduğunda
+          ndef.onreading = (event) => {
+            const { message } = event;
+            for (const record of message.records) {
+              if (record.recordType === "text") {
+                const cardNo = new TextDecoder().decode(record.data);
+                cardIdInput.value = cardNo;  // Kart ID'sini giriş alanına yazdırıyoruz
+                statusEl.textContent = "Kart başarıyla okundu!";
+                break;
+              }
+            }
+          };
+
+          // NFC okuma hatası durumunda
+          ndef.onreadingerror = () => {
+            statusEl.textContent = "NFC okuma hatası. Lütfen tekrar deneyin.";
+          };
+        } catch (error) {
+          statusEl.textContent = "NFC tarayıcı başlatılamadı. Tarayıcınız desteklemiyor olabilir.";
+        }
+      } else {
+        statusEl.textContent = "Web NFC desteklenmiyor.";
+      }
+    });
+  </script>
+</body>
+</html>
